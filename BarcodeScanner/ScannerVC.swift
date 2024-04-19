@@ -5,4 +5,83 @@
 //  Created by Matheus Pinheiro on 18/04/24.
 //
 
-import Foundation
+import UIKit
+import AVFoundation
+
+protocol ScannerVCDelegate: AnyObject {
+    func didFind(barcode: String)
+}
+
+final class ScannerVC: UIViewController {
+    
+    let captureSession = AVCaptureSession()
+    var previewLayer: AVCaptureVideoPreviewLayer?
+    weak var scannerDelegate: ScannerVCDelegate?
+    
+    init(scannerDelegate: ScannerVCDelegate) {
+        super.init(nibName: nil, bundle: nil)
+        self.scannerDelegate = scannerDelegate
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupCaptureSession() {
+        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
+            return
+        }
+        
+        var videoInput: AVCaptureDeviceInput
+    
+        do {
+            try videoInput = AVCaptureDeviceInput(device: videoCaptureDevice)
+        } catch {
+            // To do error
+            return
+        }
+        
+        if captureSession.canAddInput(videoInput) {
+            captureSession.addInput(videoInput)
+        } else {
+            
+            return
+        }
+        
+        let metaDataOutput = AVCaptureMetadataOutput()
+        
+        if captureSession.canAddOutput(metaDataOutput) {
+            captureSession.addOutput(metaDataOutput)
+            metaDataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+            metaDataOutput.metadataObjectTypes = [.ean8, .ean13]
+        } else {
+            // To do error
+            return
+        }
+        
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        guard let previewLayer = previewLayer else {
+            return
+        }
+        previewLayer.videoGravity = .resizeAspectFill
+        view.layer.addSublayer(previewLayer)
+        
+        captureSession.startRunning()
+        
+    }
+    
+}
+
+extension ScannerVC: AVCaptureMetadataOutputObjectsDelegate {
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        guard let object = metadataObjects.first,
+              let machineReadableObject = object as? AVMetadataMachineReadableCodeObject,
+              let barcode = machineReadableObject.stringValue
+        else {
+            return
+        }
+
+        
+        scannerDelegate?.didFind(barcode: barcode)
+    }
+}
