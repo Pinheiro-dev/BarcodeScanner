@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD0736502BD72F5A00176378 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD07364F2BD72F5A00176378 /* ScannerView.swift */; };
 		DDCF81B52BD1E302003E7816 /* BarcodeScannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF81B42BD1E302003E7816 /* BarcodeScannerApp.swift */; };
 		DDCF81B72BD1E302003E7816 /* BarcodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF81B62BD1E302003E7816 /* BarcodeScannerView.swift */; };
 		DDCF81B92BD1E303003E7816 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDCF81B82BD1E303003E7816 /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD07364F2BD72F5A00176378 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		DDCF81B12BD1E302003E7816 /* BarcodeScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BarcodeScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDCF81B42BD1E302003E7816 /* BarcodeScannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerApp.swift; sourceTree = "<group>"; };
 		DDCF81B62BD1E302003E7816 /* BarcodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerView.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				DDCF81C32BD1E74B003E7816 /* ScannerVC.swift */,
+				DD07364F2BD72F5A00176378 /* ScannerView.swift */,
 				DDCF81B42BD1E302003E7816 /* BarcodeScannerApp.swift */,
 				DDCF81B62BD1E302003E7816 /* BarcodeScannerView.swift */,
 				DDCF81B82BD1E303003E7816 /* Assets.xcassets */,
@@ -143,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDCF81C42BD1E74B003E7816 /* ScannerVC.swift in Sources */,
+				DD0736502BD72F5A00176378 /* ScannerView.swift in Sources */,
 				DDCF81B72BD1E302003E7816 /* BarcodeScannerView.swift in Sources */,
 				DDCF81B52BD1E302003E7816 /* BarcodeScannerApp.swift in Sources */,
 			);
