@@ -10,6 +10,7 @@ import SwiftUI
 struct ScannerView: UIViewControllerRepresentable {
     
     @Binding var scannedCode: String
+    @Binding var alertItem: AlertItem?
     
     func makeUIViewController(context: Context) -> ScannerVC {
         ScannerVC(scannerDelegate: context.coordinator)
@@ -30,15 +31,23 @@ struct ScannerView: UIViewControllerRepresentable {
         }
         
         func didFind(barcode: String) {
-            scannerView.scannedCode = barcode 
+            scannerView.scannedCode = barcode
         }
         
         func didSurface(error: CameraError) {
-            print(error.rawValue)
+            switch error {
+                case .invalidDeviceInput:
+                    scannerView.alertItem = AlertContent.invalidDeviceInput
+                case .invalidScannedValue:
+                    scannerView.alertItem = AlertContent.invalidScannedType
+            }
         }
     }
 }
 
 #Preview {
-    ScannerView(scannedCode: .constant("12125667674"))
+    ScannerView(
+        scannedCode: .constant("12125667674"),
+        alertItem: .constant(nil)
+    )
 }
